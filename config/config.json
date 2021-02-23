@@ -1,0 +1,12 @@
+{
+  "app": {
+    "name": "Name",
+    "version": "Version",
+    "dev": "DevName",
+    "console": "[Shwi]:"
+  },
+  "bot": {
+    "prefix": "??",
+    "version": "1.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+const Command = require(`../base/Command`);
+class Test extends Command {
+
+  exec(message) {
+    message.channel.send(`Testing!`);
+  }
+
+}
+const test = new Test();
+
+module.exports = {
+  name: "test",
+  help: "Testing!",
+  info: {
+    returnHelp: false
+  },
+  permissions: ["SEND_MESSAGES"],
+  run(message, client) {
+    if (!test.initiated) {
+      test.init(client);
+    }
+    test.exec(message);
+  }
+}
