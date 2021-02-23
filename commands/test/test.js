@@ -16,8 +16,8 @@ module.exports = {
   },
   permissions: ["SEND_MESSAGES"],
   run(message, client) {
-    if (!test.initiated) {
-      test.init(client);
+    if (!test.init) {
+      test.initiate(client);
     }
     test.exec(message);
   }

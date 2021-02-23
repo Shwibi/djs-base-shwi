@@ -7,4 +7,11 @@ module.exports = class Event extends Shwi {
   call() {
     this.start();
   }
+
+  set init(init) {
+    this.initiated = init;
+  }
+  get init() {
+    return this.initiated;
+  }
 }

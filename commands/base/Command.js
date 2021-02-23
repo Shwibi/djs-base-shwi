@@ -15,9 +15,16 @@ module.exports = class Command extends Shwi {
 
   }
 
-  init(client) {
+  initiate(client) {
     this.initiated = true;
     this.client = client;
+  }
+
+  get init() {
+    return this.initiated;
+  }
+  set init(inited) {
+    this.initiated = inited;
   }
 
 }

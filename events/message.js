@@ -95,7 +95,7 @@ const mes = new Message();
 
 module.exports = (client, message) => {
 
-  if (!mes.initiated) {
+  if (!mes.init) {
     mes.initiate(client);
   }
   mes.newMessage(message);
