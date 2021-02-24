@@ -1,6 +1,5 @@
 const Shwi = require(`../../shwi`);
-
-module.exports = class Command extends Shwi {
+class Command extends Shwi {
 
   constructor() {
     super();
@@ -27,4 +26,11 @@ module.exports = class Command extends Shwi {
     this.initiated = inited;
   }
 
+}
+
+module.exports = {
+  info: {
+    ignore: true
+  },
+  Command
 }

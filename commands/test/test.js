@@ -1,4 +1,4 @@
-const Command = require(`../base/Command`);
+const { Command } = require(`../base/Command`);
 class Test extends Command {
 
   exec(message) {
@@ -12,7 +12,9 @@ module.exports = {
   name: "test",
   help: "Testing!",
   info: {
-    returnHelp: false
+    returnHelp: false,
+    ignore: false,
+    guildOnly: true
   },
   permissions: ["SEND_MESSAGES"],
   run(message, client) {

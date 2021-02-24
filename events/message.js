@@ -22,7 +22,9 @@ class Message extends Event {
       for (const file of commandFiles) {
         const command = require(`../commands/${folder}/${file}`);
         const commandName = command.name;
-        this.Commands.set(commandName, command);
+        if (!command.info.ignore) {
+          this.Commands.set(commandName, command);
+        }
       }
     }
 
@@ -50,8 +52,18 @@ class Message extends Event {
 
       const permsRequired = this.cmd.permissions || ["SEND_MESSAGES"];
       let stateOfPerm = true;
+      if (this.cmd.info.guildOnly && !message.guild) return;
+      if (this.cmd.info.dmOnly && message.guild) return;
       for (let i = 0; i < permsRequired.length; i++) {
-        if (!message.member.hasPermission(permsRequired[i])) stateOfPerm = false;
+        if (permsRequired[i] == "DEV") {
+          if (!this.config.dev.id.includes(message.author.id)) {
+            stateOfPerm = false;
+          }
+        }
+        else {
+          if (!message.member.hasPermission(permsRequired[i])) stateOfPerm = false;
+        }
+
       }
       if (stateOfPerm) {
         if (args[0] == "help") {
@@ -60,10 +72,6 @@ class Message extends Event {
         }
         this.callCommand(cm, message, "run");
       }
-
-
-
-
 
     }
 
