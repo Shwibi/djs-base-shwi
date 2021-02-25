@@ -2,11 +2,18 @@ const { Command } = require(`../base/Command`);
 
 class Ping extends Command {
   exec(message) {
-    const PingEmbed = new this.djs.MessageEmbed()
-      .setTitle(`Ping!`)
-      .setDescription(`Client API Ping: ${this.client.ws.ping}ms`)
-      .setColor(`RANDOM`);
-    message.channel.send(PingEmbed);
+    message.channel.send(
+      `Loading data...`
+    ).then(
+      msg => {
+        msg.edit(`Data loaded!`)
+        const PingEmbed = new this.djs.MessageEmbed()
+          .setTitle(`Ping!`)
+          .setDescription(`Client API Ping: ${this.client.ws.ping}ms | Latence: ${msg.createdTimestamp - message.createdTimestamp}ms`)
+          .setColor(`RANDOM`);
+        msg.edit(PingEmbed);
+      }
+    )
   }
 }
 

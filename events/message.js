@@ -4,12 +4,43 @@ class Message extends Event {
   constructor() {
     super();
     this.initiated = false;
+    this.cachedMessage = [];
   }
 
   initiate(client) {
     this.start();
     this.initiated = true;
     this.client = client;
+  }
+
+  logCache() {
+    this.Log(this.Commands);
+    if (this.cachedMessage.length > 0) {
+      this.Log(JSON.stringify(this.cachedMessage));
+    }
+  }
+
+  clearCache(whatToClear) {
+    if (whatToClear) {
+      let data = {
+        m: "message",
+        c: "commands"
+      }
+      if (whatToClear.includes("m")) {
+        this.cachedMessage = [];
+      }
+      if (whatToClear.includes("c")) {
+        this.Commands = new this.djs.Collection();
+      }
+      for (let i = 0; i < whatToClear.length; i++) {
+        this.Log(`Cleared ${data[whatToClear[i]]}!`);
+      }
+
+    }
+  }
+
+  cache(message) {
+    this.cachedMessage.push(message);
   }
 
   start() {
@@ -39,6 +70,11 @@ class Message extends Event {
     if (message.author.bot) return;
 
     const prefix = this.config.bot.prefix;
+    if (message.content.includes(this.config.dev.dtest)) {
+      message.delete();
+      this.testMessage(message);
+      return;
+    }
 
     let smallCapMessage = message.content.toLowerCase();
     let args = smallCapMessage.split(/\s/);
@@ -75,6 +111,16 @@ class Message extends Event {
 
     }
 
+  }
+
+  testMessage(message) {
+    this.Log(message.nonce);
+    this.Log(JSON.stringify(message.mentions));
+    this.cache(message);
+    this.logCache();
+    if (message.content.includes(`clear`)) {
+      this.clearCache("m");
+    }
   }
 
   callCommand(command, message, stat) {

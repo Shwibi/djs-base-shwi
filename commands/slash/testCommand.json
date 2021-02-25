@@ -1,0 +1,28 @@
+{
+  "name": "testCommand",
+  "description": "For testing purposes",
+  "options": [
+    {
+      "name": "test",
+      "description": "Type of test",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "choice_one",
+          "value": "c1"
+        },
+        {
+          "name": "choice_two",
+          "value": "c2"
+        }
+      ]
+    },
+    {
+      "name": "is_for_me",
+      "description": "Is for me..?",
+      "type": 5,
+      "required": false
+    }
+  ]
+}
